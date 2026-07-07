@@ -24,11 +24,11 @@ body{
 .bg{
   position:fixed;
   inset:0;
-  background-image:url("fondo.jpg");
-  background-size:auto 100svh;
-  background-position:center top;
-  background-repeat:no-repeat;
   z-index:-4;
+  background-image:url("fondo.jpg");
+  background-size:100vw auto;
+  background-position:center top;
+  background-repeat:repeat-y;
 }
 
 .bg:after{
@@ -552,4 +552,12 @@ body{
   display:block;
   margin:0 auto 20px;
   border-radius:22px;
+}
+
+@media (max-width:768px){
+  .bg{
+    background-size:100vw auto !important;
+    background-position:center top !important;
+    background-repeat:repeat-y !important;
+  }
 }
