@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Wish Vault 🔒</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      height: 100vh;
+      font-family: Arial, sans-serif;
+      background: #0b0b0f;
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+    }
+
+    .screen {
+      display: none;
+      text-align: center;
+      width: 90%;
+      max-width: 400px;
+    }
+
+    .active {
+      display: block;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+    }
+
+    input {
+      padding: 12px;
+      width: 80%;
+      border-radius: 20px;
+      border: none;
+      margin: 20px 0;
+      text-align: center;
+    }
+
+    button {
+      padding: 12px 30px;
+      border-radius: 25px;
+      border: none;
+      background: #d4af37;
+      cursor: pointer;
+      font-size: 1rem;
+    }
+
+    .vault {
+      background: #15151d;
+      padding: 25px;
+      border-radius: 20px;
+    }
+
+    li {
+      list-style: none;
+      margin: 15px 0;
+      background: #22222d;
+      padding: 15px;
+      border-radius: 12px;
+    }
+
+    .unlock {
+      font-size: 60px;
+      animation: pulse 1s infinite;
+    }
+
+    @keyframes pulse {
+      50% {
+        transform: scale(1.2);
+      }
+    }
+
+  </style>
+</head>
+
+<body>
+
+
+<!-- QR -->
+<div class="screen active" id="qr">
+  <h1>📱</h1>
+  <h2>Escanea el QR</h2>
+  <p>Accediendo a Wish Vault...</p>
+</div>
+
+
+<!-- PASSWORD -->
+<div class="screen" id="access">
+  <h1>🔒 ACCESS</h1>
+  <p>Introduce la contraseña</p>
+
+  <input id="password" type="password">
+
+  <br>
+
+  <button onclick="unlock()">Entrar</button>
+</div>
+
+
+<!-- UNLOCK -->
+<div class="screen" id="unlock">
+  <div class="unlock">🔓</div>
+  <h2>Desbloqueando...</h2>
+</div>
+
+
+<!-- WELCOME -->
+<div class="screen" id="welcome">
+  <h1>❤️ Bienvenido</h1>
+  <p>Tu espacio secreto está abierto.</p>
+</div>
+
+
+<!-- VAULT -->
+<div class="screen" id="vault">
+
+  <div class="vault">
+
+    <h1>📂 Wish Vault</h1>
+
+    <ul>
+      <li>🎮 Videojuego nuevo</li>
+      <li>📚 Libro favorito</li>
+      <li>🎧 Auriculares</li>
+      <li>✈️ Viaje soñado</li>
+    </ul>
+
+  </div>
+
+</div>
+
+
+<script>
+
+setTimeout(() => {
+  show("access");
+}, 2500);
+
+
+function show(id){
+
+  document.querySelectorAll(".screen")
+  .forEach(screen => {
+    screen.classList.remove("active");
+  });
+
+  document.getElementById(id)
+  .classList.add("active");
+
+}
+
+
+function unlock(){
+
+  let pass = document.getElementById("password").value;
+
+
+  if(pass === "1234"){
+
+    show("unlock");
+
+
+    setTimeout(()=>{
+      show("welcome");
+    },2000);
+
+
+    setTimeout(()=>{
+      show("vault");
+    },4000);
+
+
+  } else {
+
+    alert("Contraseña incorrecta");
+
+  }
+
+}
+
+
+</script>
+
+
+</body>
+</html>
