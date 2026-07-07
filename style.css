@@ -571,3 +571,20 @@ body{
     background-repeat:no-repeat !important;
   }
 }
+
+.category-header{
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.06), rgba(0,0,0,.18)),
+    rgba(8,8,8,.72);
+  border:1px solid rgba(212,175,55,.42);
+  box-shadow:
+    inset 0 0 18px rgba(255,215,90,.06),
+    0 0 22px rgba(212,175,55,.10);
+}
+
+.category-header:hover{
+  transform:translateY(-2px);
+  box-shadow:
+    inset 0 0 18px rgba(255,215,90,.10),
+    0 0 28px rgba(212,175,55,.20);
+}
