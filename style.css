@@ -26,9 +26,9 @@ body{
   inset:0;
   z-index:-4;
   background-image:url("fondo.jpg");
-  background-size:100vw auto;
+  background-size:cover;
   background-position:center top;
-  background-repeat:repeat-y;
+  background-repeat:no-repeat;
 }
 
 .bg:after{
@@ -556,8 +556,10 @@ body{
 
 @media (max-width:768px){
   .bg{
-    background-size:100vw auto !important;
+    height:100dvh;
+    min-height:100dvh;
+    background-size:cover !important;
     background-position:center top !important;
-    background-repeat:repeat-y !important;
+    background-repeat:no-repeat !important;
   }
 }
