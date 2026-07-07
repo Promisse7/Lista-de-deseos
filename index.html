@@ -1,469 +1,124 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Gift Card</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gift Card</title>
 
-<style>
-* {
-  box-sizing: border-box;
-}
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Dancing+Script:wght@700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-:root {
-  --gold: #d4af37;
-  --gold-light: #ffe58a;
-  --dark: rgba(0, 0, 0, 0.58);
-  --glass: rgba(255, 255, 255, 0.10);
-  --border: rgba(212, 175, 55, 0.55);
-}
-
-body {
-  margin: 0;
-  min-height: 100vh;
-  font-family: "Segoe UI", Arial, sans-serif;
-  color: white;
-  background: url("fondo.jpg") center / cover fixed no-repeat;
-  overflow-x: hidden;
-}
-
-.screen {
-  display: none;
-  min-height: 100vh;
-  padding: 26px 18px;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-}
-
-.screen.active {
-  display: flex;
-  animation: fadeIn 0.9s ease;
-}
-
-.card {
-  width: 100%;
-  max-width: 430px;
-  padding: 30px 24px;
-  border-radius: 28px;
-  border: 1px solid var(--border);
-  background: var(--dark);
-  backdrop-filter: blur(12px);
-  box-shadow: 0 0 40px rgba(212, 175, 55, 0.22);
-}
-
-.logo {
-  font-family: Georgia, serif;
-  font-size: 52px;
-  margin: 0;
-  color: var(--gold-light);
-  text-shadow: 0 0 22px rgba(212,175,55,.55);
-}
-
-.subtitle {
-  margin-top: 8px;
-  font-size: 18px;
-  font-style: italic;
-  opacity: .95;
-}
-
-button {
-  border: none;
-  border-radius: 18px;
-  padding: 14px 22px;
-  margin-top: 22px;
-  width: 100%;
-  background: linear-gradient(135deg, var(--gold), var(--gold-light));
-  color: #1d1400;
-  font-size: 16px;
-  font-weight: 800;
-  cursor: pointer;
-  box-shadow: 0 0 22px rgba(212,175,55,.32);
-}
-
-input[type="password"] {
-  width: 100%;
-  margin-top: 14px;
-  padding: 15px;
-  border-radius: 16px;
-  border: 1px solid var(--border);
-  background: rgba(0,0,0,.38);
-  color: white;
-  text-align: center;
-  font-size: 22px;
-  letter-spacing: 8px;
-}
-
-input[type="date"] {
-  width: 100%;
-  padding: 9px;
-  border-radius: 12px;
-  border: 1px solid rgba(212,175,55,.35);
-  background: rgba(0,0,0,.30);
-  color: white;
-}
-
-h1, h2, h3 {
-  color: var(--gold-light);
-}
-
-.heart-big {
-  font-size: 70px;
-  animation: pulse 1.4s infinite;
-}
-
-.unlock-icon {
-  font-size: 76px;
-  animation: unlockPulse 1.5s infinite;
-}
-
-.vault {
-  width: 100%;
-  max-width: 720px;
-  padding: 20px 0 36px;
-}
-
-.vault-title {
-  margin: 12px 0 5px;
-  font-family: Georgia, serif;
-  font-size: 40px;
-  text-shadow: 0 0 18px rgba(212,175,55,.45);
-}
-
-.progress-box {
-  margin: 16px auto 22px;
-  padding: 14px;
-  border-radius: 20px;
-  border: 1px solid var(--border);
-  background: rgba(0,0,0,.52);
-  backdrop-filter: blur(10px);
-}
-
-.progress-bar {
-  height: 10px;
-  border-radius: 20px;
-  background: rgba(255,255,255,.16);
-  overflow: hidden;
-  margin-top: 10px;
-}
-
-.progress-fill {
-  width: 0%;
-  height: 100%;
-  background: linear-gradient(90deg, var(--gold), var(--gold-light));
-  transition: width .4s ease;
-}
-
-.section {
-  margin: 14px 0;
-  border-radius: 22px;
-  border: 1px solid var(--border);
-  background: rgba(0,0,0,.55);
-  backdrop-filter: blur(12px);
-  overflow: hidden;
-}
-
-.section-header {
-  padding: 17px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  cursor: pointer;
-  font-weight: 800;
-  font-size: 18px;
-  color: var(--gold-light);
-}
-
-.section-content {
-  display: none;
-  padding: 0 14px 16px;
-}
-
-.section.open .section-content {
-  display: block;
-}
-
-.gift {
-  display: grid;
-  grid-template-columns: 32px 1fr 145px;
-  gap: 10px;
-  align-items: center;
-  margin: 10px 0;
-  padding: 12px;
-  border-radius: 16px;
-  background: var(--glass);
-  text-align: left;
-}
-
-.gift input[type="checkbox"] {
-  width: 22px;
-  height: 22px;
-  accent-color: var(--gold);
-}
-
-.gift.done .gift-name {
-  text-decoration: line-through;
-  opacity: .62;
-}
-
-.gift-name {
-  font-size: 15px;
-  line-height: 1.35;
-}
-
-.footer-note {
-  margin-top: 20px;
-  opacity: .9;
-  font-size: 14px;
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(14px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-@keyframes pulse {
-  50% { transform: scale(1.12); }
-}
-
-@keyframes unlockPulse {
-  50% { transform: scale(1.12) rotate(-6deg); }
-}
-
-@media(max-width: 560px) {
-  .logo { font-size: 44px; }
-  .vault-title { font-size: 32px; }
-
-  .gift {
-    grid-template-columns: 30px 1fr;
-  }
-
-  .gift input[type="date"] {
-    grid-column: 2;
-  }
-}
-</style>
+  <link rel="stylesheet" href="style.css" />
 </head>
 
 <body>
 
-<section class="screen active" id="home">
-  <div class="card">
-    <h1 class="logo">Gift Card</h1>
-    <p class="subtitle">Hecha con amor para vos.</p>
-    <button onclick="show('access')">✨ Comenzar ✨</button>
-  </div>
-</section>
+  <div class="bg"></div>
+  <div class="gold-glow glow-one"></div>
+  <div class="gold-glow glow-two"></div>
 
-<section class="screen" id="access">
-  <div class="card">
-    <div class="heart-big">🔒</div>
-    <h2>Código de seguridad</h2>
-    <input id="password" type="password" maxlength="4" placeholder="••••" />
-    <button onclick="unlock()">ACCEDER</button>
-  </div>
-</section>
-
-<section class="screen" id="unlock">
-  <div class="card">
-    <div class="unlock-icon">🔓</div>
-    <h2>Desbloqueando regalo...</h2>
-  </div>
-</section>
-
-<section class="screen" id="welcome">
-  <div class="card">
-    <div class="heart-big">❤️</div>
-    <h1 style="font-size:28px;">Feliz cumpleaños mi amor</h1>
-    <p style="line-height:1.7;">
-      Espero que te guste el regalo.<br>
-      Te amo ❤️
-    </p>
-  </div>
-</section>
-
-<section class="screen" id="vault">
-  <div class="vault">
-    <h1 class="vault-title">❤️ Lista de regalos</h1>
-
-    <div class="progress-box">
-      <div id="progressText">❤️ 0 / 30 regalos cumplidos</div>
-      <div class="progress-bar">
-        <div class="progress-fill" id="progressFill"></div>
-      </div>
+  <section class="screen active" id="home">
+    <div class="glass-card hero-card">
+      <div class="tiny-heart">♥</div>
+      <h1 class="gold-title">Gift Card</h1>
+      <p class="handwritten">Hecha con amor para vos.</p>
+      <button class="gold-button" onclick="showScreen('access')">Comenzar</button>
     </div>
+  </section>
 
-    <div class="section">
-      <div class="section-header" onclick="toggleSection(this)">
-        <span>⭐ 12 deseos especiales</span>
-        <span>⌄</span>
-      </div>
-      <div class="section-content" id="deseos"></div>
+  <section class="screen" id="access">
+    <div class="glass-card">
+      <div class="lock">🔒</div>
+      <h2 class="section-title">Código de seguridad</h2>
+      <p class="soft-text">Ingresá el código para abrir tu regalo</p>
+
+      <input
+        id="password"
+        class="code-input"
+        type="password"
+        maxlength="4"
+        placeholder="••••"
+      />
+
+      <button class="gold-button" onclick="unlockGift()">Acceder</button>
+      <p id="error" class="error"></p>
     </div>
+  </section>
 
-    <div class="section">
-      <div class="section-header" onclick="toggleSection(this)">
-        <span>❤️ 8 favores del corazón</span>
-        <span>⌄</span>
-      </div>
-      <div class="section-content" id="corazon"></div>
+  <section class="screen" id="unlock">
+    <div class="glass-card">
+      <div class="unlock">🔓</div>
+      <h2 class="section-title">Desbloqueando...</h2>
+      <p class="soft-text">Preparando tu regalo</p>
     </div>
+  </section>
 
-    <div class="section">
-      <div class="section-header" onclick="toggleSection(this)">
-        <span>⭐ 9 favores especiales</span>
-        <span>⌄</span>
-      </div>
-      <div class="section-content" id="especiales"></div>
+  <section class="screen" id="welcome">
+    <div class="glass-card">
+      <div class="big-heart">♥</div>
+      <h2 class="birthday-title">Feliz cumpleaños mi amor</h2>
+      <p class="welcome-text">
+        Espero que te guste el regalo.<br>
+        Te amo.
+      </p>
     </div>
+  </section>
 
-    <div class="section">
-      <div class="section-header" onclick="toggleSection(this)">
-        <span>🎁 1 super regalo a elección</span>
-        <span>⌄</span>
+  <section class="screen vault-screen" id="vault">
+    <main class="vault-container">
+
+      <header class="vault-header">
+        <div class="tiny-heart">♥</div>
+        <h1 class="gold-title small">Lista de regalos</h1>
+        <p class="soft-text">30 regalos para cumplir con amor</p>
+      </header>
+
+      <div class="progress-card">
+        <div class="progress-top">
+          <span id="progressText">♥ 0 / 30 regalos cumplidos</span>
+          <span id="progressPercent">0%</span>
+        </div>
+        <div class="progress-bar">
+          <div id="progressFill" class="progress-fill"></div>
+        </div>
       </div>
-      <div class="section-content" id="super"></div>
-    </div>
 
-    <p class="footer-note">Cada regalo cumplido queda guardado con su fecha ❤️</p>
-  </div>
-</section>
+      <section class="gift-section open">
+        <button class="gift-section-header" onclick="toggleSection(this)">
+          <span>⭐ 12 deseos especiales</span>
+          <span class="arrow">⌄</span>
+        </button>
+        <div class="gift-list" id="deseos"></div>
+      </section>
 
-<script>
-const PASSWORD = "2212";
+      <section class="gift-section">
+        <button class="gift-section-header" onclick="toggleSection(this)">
+          <span>❤️ 8 favores del corazón</span>
+          <span class="arrow">⌄</span>
+        </button>
+        <div class="gift-list" id="corazon"></div>
+      </section>
 
-const regalos = {
-  deseos: [
-    "Deseo especial 1",
-    "Deseo especial 2",
-    "Deseo especial 3",
-    "Deseo especial 4",
-    "Deseo especial 5",
-    "Deseo especial 6",
-    "Deseo especial 7",
-    "Deseo especial 8",
-    "Deseo especial 9",
-    "Deseo especial 10",
-    "Deseo especial 11",
-    "Deseo especial 12"
-  ],
-  corazon: [
-    "Favor del corazón 1",
-    "Favor del corazón 2",
-    "Favor del corazón 3",
-    "Favor del corazón 4",
-    "Favor del corazón 5",
-    "Favor del corazón 6",
-    "Favor del corazón 7",
-    "Favor del corazón 8"
-  ],
-  especiales: [
-    "Favor especial 1",
-    "Favor especial 2",
-    "Favor especial 3",
-    "Favor especial 4",
-    "Favor especial 5",
-    "Favor especial 6",
-    "Favor especial 7",
-    "Favor especial 8",
-    "Favor especial 9"
-  ],
-  super: [
-    "Super regalo a elección"
-  ]
-};
+      <section class="gift-section">
+        <button class="gift-section-header" onclick="toggleSection(this)">
+          <span>⭐ 9 favores especiales</span>
+          <span class="arrow">⌄</span>
+        </button>
+        <div class="gift-list" id="especiales"></div>
+      </section>
 
-function show(id) {
-  document.querySelectorAll(".screen").forEach(screen => {
-    screen.classList.remove("active");
-  });
-  document.getElementById(id).classList.add("active");
-}
+      <section class="gift-section">
+        <button class="gift-section-header" onclick="toggleSection(this)">
+          <span>🎁 1 super regalo a elección</span>
+          <span class="arrow">⌄</span>
+        </button>
+        <div class="gift-list" id="super"></div>
+      </section>
 
-function unlock() {
-  const pass = document.getElementById("password").value;
+    </main>
+  </section>
 
-  if (pass === PASSWORD) {
-    show("unlock");
-
-    setTimeout(() => {
-      show("welcome");
-    }, 1800);
-
-    setTimeout(() => {
-      show("vault");
-    }, 4300);
-  } else {
-    alert("Código incorrecto");
-  }
-}
-
-function toggleSection(header) {
-  header.parentElement.classList.toggle("open");
-}
-
-function crearLista(id, items) {
-  const contenedor = document.getElementById(id);
-
-  items.forEach((texto, index) => {
-    const keyCheck = `${id}-${index}-check`;
-    const keyDate = `${id}-${index}-date`;
-
-    const div = document.createElement("div");
-    div.className = "gift";
-
-    div.innerHTML = `
-      <input type="checkbox">
-      <div class="gift-name">${index + 1}. ${texto}</div>
-      <input type="date">
-    `;
-
-    const checkbox = div.querySelector('input[type="checkbox"]');
-    const date = div.querySelector('input[type="date"]');
-
-    checkbox.checked = localStorage.getItem(keyCheck) === "true";
-    date.value = localStorage.getItem(keyDate) || "";
-
-    if (checkbox.checked) {
-      div.classList.add("done");
-    }
-
-    checkbox.addEventListener("change", () => {
-      localStorage.setItem(keyCheck, checkbox.checked);
-      div.classList.toggle("done", checkbox.checked);
-      updateProgress();
-    });
-
-    date.addEventListener("change", () => {
-      localStorage.setItem(keyDate, date.value);
-    });
-
-    contenedor.appendChild(div);
-  });
-}
-
-function updateProgress() {
-  const checks = document.querySelectorAll('.gift input[type="checkbox"]');
-  const checked = document.querySelectorAll('.gift input[type="checkbox"]:checked').length;
-  const total = checks.length;
-  const percent = total ? (checked / total) * 100 : 0;
-
-  document.getElementById("progressText").textContent = `❤️ ${checked} / ${total} regalos cumplidos`;
-  document.getElementById("progressFill").style.width = percent + "%";
-}
-
-crearLista("deseos", regalos.deseos);
-crearLista("corazon", regalos.corazon);
-crearLista("especiales", regalos.especiales);
-crearLista("super", regalos.super);
-updateProgress();
-
-document.getElementById("password").addEventListener("keydown", function(e) {
-  if (e.key === "Enter") {
-    unlock();
-  }
-});
-</script>
-
+  <script src="script.js"></script>
 </body>
 </html>
