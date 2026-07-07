@@ -496,3 +496,47 @@ body{
   .section-title{font-size:32px}
   .gift-section-header{font-size:17px}
 }
+.gold-title {
+  position: relative;
+  filter: drop-shadow(0 0 12px rgba(255, 220, 120, .28));
+}
+
+.gold-title::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    110deg,
+    transparent 0%,
+    transparent 38%,
+    rgba(255,255,255,.75) 48%,
+    transparent 58%,
+    transparent 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: titleShine 4.5s ease-in-out infinite;
+}
+
+@keyframes titleShine {
+  0% { transform: translateX(-120%); opacity: 0; }
+  35% { opacity: .8; }
+  55% { transform: translateX(120%); opacity: 0; }
+  100% { transform: translateX(120%); opacity: 0; }
+}
+
+.glass-card,
+.progress-card,
+.gift-section {
+  box-shadow:
+    0 0 0 1px rgba(255,255,255,.08) inset,
+    0 28px 85px rgba(0,0,0,.62),
+    0 0 52px rgba(212,175,55,.24);
+}
+
+.gift-section-header {
+  text-shadow:
+    0 2px 8px rgba(0,0,0,.5),
+    0 0 14px rgba(212,175,55,.28);
+}
