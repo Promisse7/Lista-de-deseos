@@ -1,196 +1,280 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Wish Vault 🔒</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gift Card</title>
 
-  <style>
-    * {
-      box-sizing: border-box;
+<style>
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    min-height: 100vh;
+    font-family: Arial, sans-serif;
+    color: white;
+    background:
+      linear-gradient(rgba(0,0,0,.68), rgba(0,0,0,.82)),
+      url("fondo.jpg");
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+  }
+
+  .screen {
+    display: none;
+    min-height: 100vh;
+    padding: 30px 18px;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .active { display: flex; }
+
+  .card {
+    width: 100%;
+    max-width: 430px;
+    padding: 28px;
+    border: 1px solid #d4af37;
+    border-radius: 24px;
+    background: rgba(0,0,0,.55);
+    backdrop-filter: blur(8px);
+    box-shadow: 0 0 25px rgba(212,175,55,.25);
+  }
+
+  h1, h2 {
+    color: #f5d46b;
+    margin-bottom: 15px;
+  }
+
+  .logo {
+    font-size: 44px;
+    font-family: Georgia, serif;
+  }
+
+  input[type="password"], input[type="date"] {
+    width: 100%;
+    padding: 12px;
+    border-radius: 12px;
+    border: 1px solid #d4af37;
+    background: rgba(255,255,255,.08);
+    color: white;
+    margin: 10px 0;
+  }
+
+  button {
+    width: 100%;
+    padding: 14px;
+    margin-top: 15px;
+    border: none;
+    border-radius: 16px;
+    background: linear-gradient(135deg, #d4af37, #ffe28a);
+    color: #1b1200;
+    font-weight: bold;
+    font-size: 16px;
+    cursor: pointer;
+  }
+
+  .small-title {
+    font-size: 26px;
+  }
+
+  .message {
+    font-size: 16px;
+    line-height: 1.6;
+  }
+
+  .vault {
+    width: 100%;
+    max-width: 620px;
+    margin: auto;
+  }
+
+  .section {
+    margin: 18px 0;
+    padding: 16px;
+    border: 1px solid rgba(212,175,55,.6);
+    border-radius: 18px;
+    background: rgba(0,0,0,.55);
+  }
+
+  .section h2 {
+    font-size: 18px;
+    text-align: left;
+  }
+
+  .gift {
+    display: grid;
+    grid-template-columns: 30px 1fr 130px;
+    gap: 8px;
+    align-items: center;
+    margin: 9px 0;
+    padding: 10px;
+    border-radius: 12px;
+    background: rgba(255,255,255,.07);
+    text-align: left;
+  }
+
+  .gift input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    accent-color: #d4af37;
+  }
+
+  .gift.done span {
+    text-decoration: line-through;
+    opacity: .65;
+  }
+
+  @media(max-width: 520px) {
+    .gift {
+      grid-template-columns: 28px 1fr;
     }
 
-    body {
-      margin: 0;
-      height: 100vh;
-      font-family: Arial, sans-serif;
-      background: #0b0b0f;
-      color: white;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      overflow: hidden;
+    .gift input[type="date"] {
+      grid-column: 2;
     }
-
-    .screen {
-      display: none;
-      text-align: center;
-      width: 90%;
-      max-width: 400px;
-    }
-
-    .active {
-      display: block;
-    }
-
-    h1 {
-      font-size: 2.5rem;
-    }
-
-    input {
-      padding: 12px;
-      width: 80%;
-      border-radius: 20px;
-      border: none;
-      margin: 20px 0;
-      text-align: center;
-    }
-
-    button {
-      padding: 12px 30px;
-      border-radius: 25px;
-      border: none;
-      background: #d4af37;
-      cursor: pointer;
-      font-size: 1rem;
-    }
-
-    .vault {
-      background: #15151d;
-      padding: 25px;
-      border-radius: 20px;
-    }
-
-    li {
-      list-style: none;
-      margin: 15px 0;
-      background: #22222d;
-      padding: 15px;
-      border-radius: 12px;
-    }
-
-    .unlock {
-      font-size: 60px;
-      animation: pulse 1s infinite;
-    }
-
-    @keyframes pulse {
-      50% {
-        transform: scale(1.2);
-      }
-    }
-
-  </style>
+  }
+</style>
 </head>
 
 <body>
 
-
-<!-- QR -->
-<div class="screen active" id="qr">
-  <h1>📱</h1>
-  <h2>Escanea el QR</h2>
-  <p>Accediendo a Wish Vault...</p>
-</div>
-
-
-<!-- PASSWORD -->
-<div class="screen" id="access">
-  <h1>🔒 ACCESS</h1>
-  <p>Introduce la contraseña</p>
-
-  <input id="password" type="password">
-
-  <br>
-
-  <button onclick="unlock()">Entrar</button>
-</div>
-
-
-<!-- UNLOCK -->
-<div class="screen" id="unlock">
-  <div class="unlock">🔓</div>
-  <h2>Desbloqueando...</h2>
-</div>
-
-
-<!-- WELCOME -->
-<div class="screen" id="welcome">
-  <h1>❤️ Bienvenido</h1>
-  <p>Tu espacio secreto está abierto.</p>
-</div>
-
-
-<!-- VAULT -->
-<div class="screen" id="vault">
-
-  <div class="vault">
-
-    <h1>📂 Wish Vault</h1>
-
-    <ul>
-      <li>🎮 Videojuego nuevo</li>
-      <li>📚 Libro favorito</li>
-      <li>🎧 Auriculares</li>
-      <li>✈️ Viaje soñado</li>
-    </ul>
-
+<section class="screen active" id="access">
+  <div class="card">
+    <h1 class="logo">Gift Card</h1>
+    <h2>Código de seguridad</h2>
+    <input id="password" type="password" placeholder="Ingresá el código">
+    <button onclick="unlock()">ACCEDER ♡</button>
   </div>
+</section>
 
-</div>
+<section class="screen" id="unlock">
+  <div class="card">
+    <h1>🔓</h1>
+    <p>Desbloqueando regalo...</p>
+  </div>
+</section>
 
+<section class="screen" id="welcome">
+  <div class="card">
+    <h1 class="small-title">Feliz cumpleaños mi amor</h1>
+    <p class="message">Espero que te guste el regalo, te amo ❤️</p>
+  </div>
+</section>
+
+<section class="screen" id="vault">
+  <div class="vault">
+    <h1>❤️ Lista de regalos</h1>
+
+    <div class="section">
+      <h2>⭐ 12 deseos especiales</h2>
+      <div id="deseos"></div>
+    </div>
+
+    <div class="section">
+      <h2>❤️ 8 favores del corazón</h2>
+      <div id="corazon"></div>
+    </div>
+
+    <div class="section">
+      <h2>⭐ 9 favores especiales</h2>
+      <div id="especiales"></div>
+    </div>
+
+    <div class="section">
+      <h2>🎁 1 super regalo a elección</h2>
+      <div id="super"></div>
+    </div>
+  </div>
+</section>
 
 <script>
+const PASSWORD = "1234";
 
-setTimeout(() => {
-  show("access");
-}, 2500);
+const regalos = {
+  deseos: [
+    "Deseo especial 1", "Deseo especial 2", "Deseo especial 3",
+    "Deseo especial 4", "Deseo especial 5", "Deseo especial 6",
+    "Deseo especial 7", "Deseo especial 8", "Deseo especial 9",
+    "Deseo especial 10", "Deseo especial 11", "Deseo especial 12"
+  ],
+  corazon: [
+    "Favor del corazón 1", "Favor del corazón 2", "Favor del corazón 3",
+    "Favor del corazón 4", "Favor del corazón 5", "Favor del corazón 6",
+    "Favor del corazón 7", "Favor del corazón 8"
+  ],
+  especiales: [
+    "Favor especial 1", "Favor especial 2", "Favor especial 3",
+    "Favor especial 4", "Favor especial 5", "Favor especial 6",
+    "Favor especial 7", "Favor especial 8", "Favor especial 9"
+  ],
+  super: [
+    "Super regalo a elección"
+  ]
+};
 
-
-function show(id){
-
-  document.querySelectorAll(".screen")
-  .forEach(screen => {
-    screen.classList.remove("active");
-  });
-
-  document.getElementById(id)
-  .classList.add("active");
-
+function show(id) {
+  document.querySelectorAll(".screen").forEach(s => s.classList.remove("active"));
+  document.getElementById(id).classList.add("active");
 }
 
+function unlock() {
+  const pass = document.getElementById("password").value;
 
-function unlock(){
-
-  let pass = document.getElementById("password").value;
-
-
-  if(pass === "1234"){
-
+  if (pass === PASSWORD) {
     show("unlock");
 
-
-    setTimeout(()=>{
-      show("welcome");
-    },2000);
-
-
-    setTimeout(()=>{
-      show("vault");
-    },4000);
-
-
+    setTimeout(() => show("welcome"), 1800);
+    setTimeout(() => show("vault"), 4300);
   } else {
-
-    alert("Contraseña incorrecta");
-
+    alert("Código incorrecto");
   }
-
 }
 
+function crearLista(id, items) {
+  const contenedor = document.getElementById(id);
 
+  items.forEach((texto, index) => {
+    const keyCheck = `${id}-${index}-check`;
+    const keyDate = `${id}-${index}-date`;
+
+    const div = document.createElement("div");
+    div.className = "gift";
+
+    div.innerHTML = `
+      <input type="checkbox">
+      <span>${index + 1}. ${texto}</span>
+      <input type="date">
+    `;
+
+    const checkbox = div.querySelector('input[type="checkbox"]');
+    const date = div.querySelector('input[type="date"]');
+
+    checkbox.checked = localStorage.getItem(keyCheck) === "true";
+    date.value = localStorage.getItem(keyDate) || "";
+
+    if (checkbox.checked) div.classList.add("done");
+
+    checkbox.addEventListener("change", () => {
+      localStorage.setItem(keyCheck, checkbox.checked);
+      div.classList.toggle("done", checkbox.checked);
+    });
+
+    date.addEventListener("change", () => {
+      localStorage.setItem(keyDate, date.value);
+    });
+
+    contenedor.appendChild(div);
+  });
+}
+
+crearLista("deseos", regalos.deseos);
+crearLista("corazon", regalos.corazon);
+crearLista("especiales", regalos.especiales);
+crearLista("super", regalos.super);
 </script>
-
 
 </body>
 </html>
